@@ -27,12 +27,10 @@ const Register = () => {
 
     try {
       const data = await registerUser(form);
-
       // navigate("/login"); // redirect to login
-
       localStorage.setItem("token", data.token);
       alert("Registered && Logged In successfully ✅");
-
+      localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/dashboard");
       /////
     } catch (error) {

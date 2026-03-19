@@ -1,26 +1,50 @@
-import { Box, Container, ListItem, Typography } from "@mui/material";
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Container, Typography, Box, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-// const navigate=useNavigate()
 const Home = () => {
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
-    <div>
-      <Container>
-        <Typography variant="h1" active="red">
-          Home
-        </Typography>
-        <Typography variant="h3" active="red">
-          <Link to="/register">Register</Link>
-        </Typography>
-        <Typography variant="h3">
-          <Link to="/login">Login</Link>
-        </Typography>
-        <Typography variant="h3">
-          <Link to="/dashboard">Dashboard</Link>
-        </Typography>
-      </Container>
-    </div>
+    <Container>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        height="80vh"
+        gap={2}
+      >
+        <Typography variant="h3">Welcome 🚀</Typography>
+
+        {!token ? (
+          <>
+            <Button variant="contained" onClick={() => navigate("/register")}>
+              Register
+            </Button>
+
+            <Button variant="outlined" onClick={() => navigate("/login")}>
+              Login
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button variant="contained" onClick={() => navigate("/dashboard")}>
+              Go to Dashboard
+            </Button>
+
+            <Button variant="outlined" color="error" onClick={handleLogout}>
+              Logout
+            </Button>
+          </>
+        )}
+      </Box>
+    </Container>
   );
 };
 

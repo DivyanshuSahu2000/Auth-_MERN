@@ -11,10 +11,10 @@ const Dashboard = () => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
 
-      if (!token) {
-        navigate("/login");
-        return;
-      }
+      // if (!token) {
+      //   navigate("/login");
+      //   return;
+      // }
 
       try {
         const data = await getProfile(token);
@@ -32,6 +32,7 @@ const Dashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
+    localStorage.removeItem("user");
   };
 
   return (
