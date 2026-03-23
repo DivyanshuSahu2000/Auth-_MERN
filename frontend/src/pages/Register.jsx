@@ -41,8 +41,19 @@ const Register = () => {
 
   return (
     <Container maxWidth="sm">
-      <Box mt={8}>
-        <Typography variant="h4" mb={3}>
+      <Box
+        mt={8}
+        sx={{
+          mt: 10,
+          p: 4,
+          borderRadius: 3,
+          backdropFilter: "blur(15px)",
+          background: "rgba(255,255,255,0.1)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
+          color: "#fff",
+        }}
+      >
+        <Typography variant="h4" mb={3} textAlign="center">
           Register
         </Typography>
 
@@ -54,6 +65,10 @@ const Register = () => {
             name="name"
             margin="normal"
             onChange={handleChange}
+            sx={{
+              input: { color: "#fff" },
+              label: { color: "#ddd" },
+            }}
           />
 
           {/* Email */}
@@ -63,6 +78,10 @@ const Register = () => {
             name="email"
             margin="normal"
             onChange={handleChange}
+            sx={{
+              input: { color: "#fff" },
+              label: { color: "#ddd" },
+            }}
           />
 
           {/* Password */}
@@ -73,10 +92,24 @@ const Register = () => {
             name="password"
             margin="normal"
             onChange={handleChange}
+            sx={{
+              input: { color: "#fff" },
+              label: { color: "#ddd" },
+            }}
           />
 
           {/* Button */}
-          <Button fullWidth variant="contained" type="submit" sx={{ mt: 2 }}>
+          <Button
+            fullWidth
+            variant="contained"
+            type="submit"
+            sx={{
+              mt: 3,
+              background: "#fff",
+              color: "#333",
+              fontWeight: "bold",
+            }}
+          >
             Register
           </Button>
         </form>

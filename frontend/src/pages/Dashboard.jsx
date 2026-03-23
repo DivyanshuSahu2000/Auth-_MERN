@@ -37,8 +37,18 @@ const Dashboard = () => {
 
   return (
     <Container>
-      <Box mt={5}>
-        <Typography variant="h4">Dashboard</Typography>
+      <Box
+        sx={{
+          mt: 8,
+          p: 4,
+          borderRadius: 3,
+          background: "rgba(255,255,255,0.1)",
+          backdropFilter: "blur(10px)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
+          color: "#fff",
+        }}
+      >
+        <Typography variant="h4">Welcome 👋</Typography>
 
         {user && (
           <>
@@ -55,7 +65,7 @@ const Dashboard = () => {
         >
           Logout
         </Button>
-      </Box>
+      </Box>{" "}
     </Container>
   );
 };

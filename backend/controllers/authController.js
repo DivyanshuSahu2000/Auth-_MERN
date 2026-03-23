@@ -18,6 +18,11 @@ const registerUser = async (req, res) => {
       email,
       password: hashedpassword,
     });
+    if (!name || !email || !password || password.trim().length < 8) {
+      return res.status(400).json({
+        message: "Password must be at least 8 characters",
+      });
+    }
     await newUser.save();
     // res.status(201).json({
     //   message: "user registered Successfully",
