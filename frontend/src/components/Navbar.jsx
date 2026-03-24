@@ -52,6 +52,7 @@
 
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -101,7 +102,22 @@ const Navbar = () => {
           </>
         ) : (
           <Box display="flex" alignItems="center" gap={2}>
-            <Typography sx={{ fontWeight: "bold" }}>👋 {user?.name}</Typography>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              gap={0.5}
+            >
+              <AccountCircleIcon fontSize="small" />
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: "bold", textTransform: "capitalize" }}
+              >
+                {" "}
+                {user?.name}
+              </Typography>
+            </Box>
+
             <Button variant="contained" color="error" onClick={handleLogout}>
               Logout
             </Button>
