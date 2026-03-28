@@ -76,12 +76,16 @@ const Navbar = () => {
     >
       <Toolbar>
         {/* Logo */}
-        <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: "bold" }}>
+        <Typography
+          variant="h6"
+          sx={{ flexGrow: 1, fontWeight: "bold", letterSpacing: 1 }}
+        >
+          {" "}
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-            MyApp 🚀
+            {" "}
+            AuthFlow{" "}
           </Link>
         </Typography>
-
         {/* Right */}
         {!token ? (
           <>
