@@ -10,14 +10,47 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
   const [loading, setLoading] = useState(false);
+  // const handleChange = (e) => {
+  //   setForm({
+  //     ...form,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    const updatedValue = name === "email" ? value.toLowerCase() : value;
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
 
+      [name]: updatedValue,
+    });
+    if (name === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      setErrors({
+        ...errors,
+        email: emailRegex.test(updatedValue)
+          ? ""
+          : "Enter valid email (example@gmail.com)",
+      });
+    }
+
+    if (name === "password") {
+      setErrors({
+        ...errors,
+        password:
+          updatedValue.length < 8
+            ? "Password must be at least8 characters"
+            : "",
+      });
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -73,6 +106,57 @@ const Login = () => {
           <TextField
             fullWidth
             label="Email"
+            type="email"
+            name="email"
+            margin="normal"
+            required
+            value={form.email}
+            onChange={handleChange}
+            error={!!errors.email}
+            helperText={errors.email}
+            sx={{
+              input: { color: "#fff" },
+              label: { color: "#ccc" },
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "#aaa",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#fff",
+                },
+              },
+            }}
+          />
+
+          {/* Password */}
+          <TextField
+            fullWidth
+            label="Password"
+            type="password"
+            name="password"
+            margin="normal"
+            required
+            value={form.password}
+            onChange={handleChange}
+            error={!!errors.password}
+            helperText={errors.password}
+            sx={{
+              input: { color: "#fff" },
+              label: { color: "#ccc" },
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "#aaa",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#fff",
+                },
+              },
+            }}
+          />
+          {/* 
+          <TextField
+            fullWidth
+            label="Email"
             name="email"
             margin="normal"
             onChange={handleChange}
@@ -113,7 +197,7 @@ const Login = () => {
                 },
               },
             }}
-          />
+          /> */}
 
           <Button
             fullWidth

@@ -12,15 +12,41 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
 
   // 🧠 Handle input change
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    const updatedValue = name === "email" ? value.toLowerCase() : value;
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
 
+      [name]: updatedValue,
+    });
+    if (name === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      setErrors({
+        ...errors,
+        email: emailRegex.test(updatedValue)
+          ? ""
+          : "Enter valid email (example@gmail.com)",
+      });
+    }
+
+    if (name === "password") {
+      setErrors({
+        ...errors,
+        password:
+          updatedValue.length < 8
+            ? "Password must be at least8 characters"
+            : "",
+      });
+    }
+  };
   // 🧠 Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,6 +96,7 @@ const Register = () => {
             margin="normal"
             onChange={handleChange}
             sx={{
+              textTransform: "lowercase",
               input: { color: "#fff" },
               label: { color: "#ddd" },
             }}
@@ -79,9 +106,14 @@ const Register = () => {
           <TextField
             fullWidth
             label="Email"
+            type="email"
             name="email"
             margin="normal"
+            required
+            value={form.email}
             onChange={handleChange}
+            error={!!errors.email}
+            helperText={errors.email}
             sx={{
               input: { color: "#fff" },
               label: { color: "#ddd" },
@@ -95,7 +127,11 @@ const Register = () => {
             type="password"
             name="password"
             margin="normal"
+            required
+            value={form.password}
             onChange={handleChange}
+            error={!!errors.password}
+            helperText={errors.password}
             sx={{
               input: { color: "#fff" },
               label: { color: "#ddd" },

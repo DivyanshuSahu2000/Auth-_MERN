@@ -15,12 +15,17 @@ const registerUser = async (req, res) => {
     const hashedpassword = await bcrypt.hash(password, salt);
     const newUser = new User({
       name,
-      email,
+      email: email.toLowerCase(),
       password: hashedpassword,
     });
     if (!name || !email || !password || password.trim().length < 8) {
       return res.status(400).json({
         message: "Password must be at least 8 characters",
+      });
+    }
+    if (!email || !email.includes("@") || !email.includes(".")) {
+      return res.status(400).json({
+        message: "Invalid email format",
       });
     }
     await newUser.save();
@@ -57,6 +62,11 @@ const loginUser = async (req, res) => {
       });
     }
 
+    if (!email || !email.includes("@") || !email.includes(".")) {
+      return res.status(400).json({
+        message: "Invalid email format",
+      });
+    }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({
