@@ -75,7 +75,6 @@ const Navbar = () => {
       }}
     >
       <Toolbar>
-        {/* Logo */}
         <Typography
           variant="h6"
           sx={{ flexGrow: 1, fontWeight: "bold", letterSpacing: 1 }}
@@ -86,7 +85,7 @@ const Navbar = () => {
             AuthFlow{" "}
           </Link>
         </Typography>
-        {/* Right */}
+
         {!token ? (
           <>
             <Button

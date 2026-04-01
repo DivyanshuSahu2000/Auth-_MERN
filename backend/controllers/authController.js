@@ -29,10 +29,6 @@ const registerUser = async (req, res) => {
       });
     }
     await newUser.save();
-    // res.status(201).json({
-    //   message: "user registered Successfully",
-    // });
-
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });

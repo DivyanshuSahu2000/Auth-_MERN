@@ -10,12 +10,6 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
-
-      // if (!token) {
-      //   navigate("/login");
-      //   return;
-      // }
-
       try {
         const data = await getProfile(token);
         setUser(data);

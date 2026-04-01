@@ -12,6 +12,7 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -50,7 +51,7 @@ const Register = () => {
   // 🧠 Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const data = await registerUser(form);
       // navigate("/login"); // redirect to login
@@ -62,6 +63,8 @@ const Register = () => {
     } catch (error) {
       console.log(error);
       alert(error.response?.data?.message || "Register failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,7 +82,7 @@ const Register = () => {
           color: "#fff",
           transition: "0.3s",
           "&:hover": {
-            transform: "scale(1.02)",
+            transform: "translateY(-6px)",
           },
         }}
       >
@@ -88,7 +91,6 @@ const Register = () => {
         </Typography>
 
         <form onSubmit={handleSubmit}>
-          {/* Name */}
           <TextField
             fullWidth
             label="Name"
@@ -101,8 +103,6 @@ const Register = () => {
               label: { color: "#ddd" },
             }}
           />
-
-          {/* Email */}
           <TextField
             fullWidth
             label="Email"
@@ -118,15 +118,14 @@ const Register = () => {
               input: { color: "#fff" },
               label: { color: "#ddd" },
             }}
-          />
-
-          {/* Password */}
+          />{" "}
           <TextField
             fullWidth
             label="Password"
             type="password"
             name="password"
             margin="normal"
+            autoComplete="password"
             required
             value={form.password}
             onChange={handleChange}
@@ -137,8 +136,6 @@ const Register = () => {
               label: { color: "#ddd" },
             }}
           />
-
-          {/* Button */}
           <Button
             fullWidth
             variant="contained"
@@ -150,7 +147,7 @@ const Register = () => {
               fontWeight: "bold",
             }}
           >
-            Register
+            {loading ? "loading..." : "Register"}
           </Button>
         </form>
       </Box>
